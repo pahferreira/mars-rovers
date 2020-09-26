@@ -10,6 +10,7 @@ module.exports = {
           helpers: './src/helpers',
           components: './src/components',
           views: './src/views',
+          theme: './src/theme',
         },
       },
     ],

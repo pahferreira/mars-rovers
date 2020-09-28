@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext } from 'react'
+import React, { FC, useState, useContext, useEffect } from 'react'
 import { Subtitle, Title, Text, Label, Tip } from 'components/UI/Texts'
 import { ScrollContainer } from 'components/UI/Containers'
 import {
@@ -9,16 +9,33 @@ import {
   PressArea,
   ButtonWrapper,
 } from './styled'
-import { IRoverBuilder } from 'types/rovers'
+import { IRover } from 'types/rovers'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { ThemeContext } from 'styled-components'
 import { Theme } from 'theme'
 import RoverBuilder from './RoverBuilder'
 import Button from 'components/Button'
+import { HomeScreenNavigationProps, EScreens, TRoute } from 'types/navigation'
 
-const Home: FC = () => {
-  const [rovers, setRovers] = useState<Array<IRoverBuilder>>([])
+type Props = {
+  navigation: HomeScreenNavigationProps
+  route: TRoute
+}
+
+const Home: FC<Props> = (props: Props) => {
+  const { navigation, route } = props
+  const [rovers, setRovers] = useState<Array<IRover>>([])
+  const [plateauFinishPosition, setPlateauFinishPosition] = useState('')
   const theme: Theme = useContext(ThemeContext)
+
+  useEffect(() => {
+    const roversFromRoute = route.params?.rovers || []
+    const roversFormated = roversFromRoute.map((rover: IRover) => ({
+      ...rover,
+      commands: '',
+    }))
+    setRovers(roversFormated)
+  }, [route.params])
 
   const handleAddRover = () => {
     const roverId = rovers.length + 1
@@ -28,6 +45,21 @@ const Home: FC = () => {
       commands: '',
     }
     setRovers((prevState) => [...prevState, newRover])
+  }
+
+  const handleInputChange = (roverId: number, key: string, value: string) => {
+    const updatedRoverBuilds = rovers.map((rover: IRover) =>
+      rover.id === roverId ? { ...rover, [key]: value } : rover,
+    )
+    setRovers(updatedRoverBuilds)
+  }
+
+  const handleChangePlateauInput = (text: string) => {
+    setPlateauFinishPosition(text)
+  }
+
+  const handleNavigateToResults = () => {
+    navigation.navigate(EScreens.RESULTS, { rovers })
   }
 
   return (
@@ -52,6 +84,8 @@ const Home: FC = () => {
         <Input
           placeholder="Enter upper-right position"
           keyboardType="numeric"
+          value={plateauFinishPosition}
+          onChangeText={handleChangePlateauInput}
         />
         <Tip>
           This input should contain two numbers separeted by whitespace.
@@ -66,11 +100,21 @@ const Home: FC = () => {
       {rovers.length === 0 ? (
         <Text>No rovers added yet.</Text>
       ) : (
-        rovers.map((rover) => <RoverBuilder rover={rover} key={rover.id} />)
+        rovers.map((rover: IRover) => (
+          <RoverBuilder
+            rover={rover}
+            key={rover.id}
+            handleInputChange={handleInputChange}
+          />
+        ))
       )}
       {rovers.length > 0 && (
         <ButtonWrapper>
-          <Button color={theme.colors.primary}>Navigate!</Button>
+          <Button
+            color={theme.colors.primary}
+            onPress={handleNavigateToResults}>
+            Navigate!
+          </Button>
         </ButtonWrapper>
       )}
     </ScrollContainer>

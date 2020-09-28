@@ -59,7 +59,10 @@ const Home: FC<Props> = (props: Props) => {
   }
 
   const handleNavigateToResults = () => {
-    navigation.navigate(EScreens.RESULTS, { rovers })
+    navigation.navigate(EScreens.RESULTS, {
+      rovers,
+      endPlateau: plateauFinishPosition,
+    })
   }
 
   return (

@@ -8,12 +8,13 @@ export enum EScreens {
 
 type RootStackParamList = {
   [EScreens.HOME]: { rovers?: Array<IRover> }
-  [EScreens.RESULTS]: { rovers: Array<IRover> }
+  [EScreens.RESULTS]: { rovers: Array<IRover>; endPlateau: string }
 }
 
 export type TRoute = {
   params: {
     rovers: Array<IRover>
+    endPlateau: string
   }
 }
 

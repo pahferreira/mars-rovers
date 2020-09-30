@@ -86,7 +86,6 @@ const Home: FC<Props> = (props: Props) => {
         <Label>Plateau end Position</Label>
         <Input
           placeholder="Enter upper-right position"
-          keyboardType="numeric"
           value={plateauFinishPosition}
           onChangeText={handleChangePlateauInput}
         />

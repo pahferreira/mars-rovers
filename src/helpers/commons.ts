@@ -18,7 +18,12 @@ export const generatePosition = (
   positionString: string = '0 0 N',
   commands: string = '',
 ): TNavigationRover => {
-  const positionStringSplitted = positionString.split(' ')
+  let positionStringSplitted
+  if (positionString === '') {
+    positionStringSplitted = '0 0 N'.split(' ')
+  } else {
+    positionStringSplitted = positionString.split(' ')
+  }
   const formatedRover = {
     position: {
       x: parseInt(positionStringSplitted[0], 0),

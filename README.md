@@ -82,4 +82,4 @@ yarn android-build
 
 You can also find an APK here:
 
-[Last APK Released](https://github.com/pahferreira/mars-rovers/releases/tag/1.0.0)
+[Last APK Released](https://github.com/pahferreira/mars-rovers/releases/tag/1.0.1)

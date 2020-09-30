@@ -9,6 +9,8 @@ export type TPlateau = {
 }
 
 export type TNavigationRover = {
+  id?: number
   position: TPosition
   facing: string
+  commands: string
 }

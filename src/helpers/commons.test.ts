@@ -59,6 +59,17 @@ describe('Common Help Functions Test', () => {
         },
       })
     })
+    it('Generate TNavigationRover from empty string on initial position', () => {
+      const navigationRover = generatePosition('')
+      expect(navigationRover).toEqual({
+        facing: 'N',
+        commands: '',
+        position: {
+          x: 0,
+          y: 0,
+        },
+      })
+    })
   })
   describe('Rotate Functions', () => {
     const rover: TNavigationRover = {

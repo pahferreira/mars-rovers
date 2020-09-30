@@ -29,6 +29,7 @@ const RoverBuilder: FC<Props> = (props: Props) => {
           placeholder="Enter the initial position and orientation"
           onChangeText={onChangePosition}
           value={rover.position}
+          autoCapitalize="characters"
         />
         <Tip>Ex: 1 1 N</Tip>
       </InputContainer>
@@ -38,6 +39,7 @@ const RoverBuilder: FC<Props> = (props: Props) => {
           placeholder="Enter the commands for this rover"
           onChangeText={onChangeCommands}
           value={rover.commands}
+          autoCapitalize="characters"
         />
         <Tip>Ex: LMMRM</Tip>
       </InputContainer>

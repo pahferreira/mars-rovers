@@ -49,7 +49,7 @@ const Home: FC<Props> = (props: Props) => {
 
   const handleInputChange = (roverId: number, key: string, value: string) => {
     const updatedRoverBuilds = rovers.map((rover: IRover) =>
-      rover.id === roverId ? { ...rover, [key]: value } : rover,
+      rover.id === roverId ? { ...rover, [key]: value.toUpperCase() } : rover,
     )
     setRovers(updatedRoverBuilds)
   }

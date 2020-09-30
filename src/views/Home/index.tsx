@@ -18,7 +18,7 @@ import Button from 'components/Button'
 import { HomeScreenNavigationProps, EScreens, TRoute } from 'types/navigation'
 
 type Props = {
-  navigation: HomeScreenNavigationProps
+  navigation?: HomeScreenNavigationProps
   route: TRoute
 }
 
@@ -59,7 +59,7 @@ const Home: FC<Props> = (props: Props) => {
   }
 
   const handleNavigateToResults = () => {
-    navigation.navigate(EScreens.RESULTS, {
+    navigation?.navigate(EScreens.RESULTS, {
       rovers,
       endPlateau: plateauFinishPosition,
     })
@@ -97,7 +97,7 @@ const Home: FC<Props> = (props: Props) => {
       <SectionContainer>
         <Subtitle>Rovers</Subtitle>
         <PressArea onPress={handleAddRover}>
-          <Icon name="add-circle" size={28} color={theme.colors.primary} />
+          <Icon name="add-circle" size={28} color={theme?.colors?.primary} />
         </PressArea>
       </SectionContainer>
       {rovers.length === 0 ? (
@@ -114,7 +114,7 @@ const Home: FC<Props> = (props: Props) => {
       {rovers.length > 0 && (
         <ButtonWrapper>
           <Button
-            color={theme.colors.primary}
+            color={theme?.colors?.primary}
             onPress={handleNavigateToResults}>
             Navigate!
           </Button>
